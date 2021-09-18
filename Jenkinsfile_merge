@@ -1,0 +1,35 @@
+pipeline {
+	agent { node { label 'docker-docs' } }
+	environment {
+		variableName = credentials('jenkins-credential-var-name')
+    }
+	stages {
+		stage("Build") {
+			steps {
+				echo '######################### Build Docs with Gradle #########################'
+                sh 'ls -la'
+				sh 'chmod +x gradlew'
+				sh './gradlew generator'
+			}
+		}
+	
+		stage("Save Docs on Server") {
+            steps {
+				echo '######################### Save Docs on Server #########################'
+				sh 'mkdir -p /var/www/html/docs/stable'
+				sh 'rm -rf /var/www/html/docs/stable/*'
+				sh 'cp -r build/docs /var/www/html/docs/stable/'
+			}
+		}
+	}
+		
+	post { 
+	    success {
+            
+		}
+        always {
+            cleanWs()
+			deleteDir()
+        }
+    }
+}

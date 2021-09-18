@@ -1,0 +1,58 @@
+= Document titile goes here
+:toc:
+:numbered:
+:toclevels: 5
+:icons: font
+
+
+:version: Software 2.2.0
+:software: Software Name
+:moduleName: Module Name
+
+== About
+Some description out here
+
+|===
+|column-1|column-2|column-3
+
+|data1| {version} |data2
+|data1| {version} |data2
+|data1| {version} |data2
+|===
+
+== Introduction
+some-text goes here
+
+some text
+
+* Option-1
+* Option-2
+* Option-3
+* Option-4
+
+== Overview
+
+{software} {moduleName} Some text
+
+* Option1
+* Option2
+
+
+== some title
+Some text
+
+*Refer the graphite until time calculation.*
+
+include::includes/_some-software-name-page-1.adoc[]
+
+[NOTE]
+====
+Not goes here
+====
+
+===== Step-1
+include::includes/_some-software-name-page-1.adoc[]
+
+===== Step-2
+include::includes/_some-software-name-page-2.adoc[]
+

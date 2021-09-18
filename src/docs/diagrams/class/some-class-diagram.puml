@@ -1,0 +1,70 @@
+@startuml
+
+
+package com.java.v1.controller {
+	interface IMyInterface <<interface>> {
+        + generatepaymentReport(period : String, download : String) : ResponseEntity
+	}
+
+	class MyController {
+        - paymentService : MySomeModuleEntityService
+        + generatepaymentReport(period : String, download : String) : ResponseEntity
+	}
+}
+
+package com.java.v1.model.dto {
+	class MyDTO <<DTO>> {
+        - period : String
+        - myCount : Long
+        - mySpaceUsed : Long
+	}
+}
+
+package com.java.v1.model.entity {
+    class MySomeModuleEntity {
+        - period : String
+        - myCount : Long
+        - mySpaceUsed : Long
+        - generateTimestamp : LocalDateTime
+    }
+}
+
+package com.java.v1.repository {
+    interface CassandraRepository<<<External> Interface>> {
+    }
+    interface IMySomeModuleEntityRepository <<interface>> {
+        + findByPeriod(period : String) : MySomeModuleEntity
+    }
+}
+
+package com.java.v1.service {
+    class MySomeModuleEntityService {
+        - paymentRepository : IMySomeModuleEntityRepository
+        + findByPeriod(period : String, download : String) : ResponseEntity
+    }
+}
+
+package com.java.v1.validator {
+    interface MySomePeriod <<interface>> {
+        + message() : String
+    }
+}
+
+package com.java.v1.validator {
+    class MySomePeriodValidator {
+        + isValid(value : String, context : ConstraintValidatorContext) : boolean
+    }
+}
+
+IMyInterface --|> MyController
+IMyInterface ..> MySomePeriod
+MyController --> MySomeModuleEntityService
+MySomeModuleEntityService --> IMySomeModuleEntityRepository
+MySomeModuleEntityService ..> MySomeModuleEntity
+MySomeModuleEntityService ..> MyDTO
+IMySomeModuleEntityRepository ..> MySomeModuleEntity
+CassandraRepository <|-- IMySomeModuleEntityRepository
+MySomePeriodValidator <|.. MySomePeriod
+MyDTO <.. IMyInterface
+
+@enduml

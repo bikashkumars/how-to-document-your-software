@@ -1,0 +1,28 @@
+As part of Step-2 monthlyBillingStep this step runs if Step-1 is completed, this step is for monthly ericsson billing report.
+
+* UsageReportBillingReader: Reads record from deviceSnap, storageSnap and apiSnap and returns APISnapDTO
+** Reading record from deviceSnap: Gets Avg Device Count for entire system in single month.
+SELECT avg(total_device_count) FROM usage_report.usage_reports_device_snap WHERE ur_period='YYYY-MM';
+** Reading record from storageSnap: Gets Max Storage Usage for entire system in single month.
+SELECT max(total_storage_used) FROM usage_report.usage_reports_storage_snap WHERE ur_period='YYYY-MM';
+** Reading record from apiSnap: Gets total api call count for entire system in single month.
+SELECT ur_period, site_name, last_inserted_datetime, sum(api_success_count) as api_success_count, sum(api_fail_count) as api_fail_count FROM usage_report.usage_reports_api_snap WHERE ur_period='2020-04';
+
+[source,java]
+----
+include::../source-code/UsageReportBillingReader.java[]
+----
+
+** UsageReportBillingProcessor: Process UsageReportBillingDTO to return UsageReportBillingDTO.
+** UsageReportBillingWriter: Builds list of UsageReportBilling Entity from list of UsageReportBillingDTO.
+*** Writes UsageReportBilling entities to usage_report.usage_reports_ericsson_billing table.
+
+|===
+|column |column1 |column2| column3
+
+|data1|data2|data3
+|data1|data2|data3| data4
+|data1|data2|data3| data4
+|===
+
+NOTE: Some simple notes here

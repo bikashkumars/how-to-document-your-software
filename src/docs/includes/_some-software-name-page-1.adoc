@@ -1,0 +1,27 @@
+Some text goes here
+[source,java]
+----
+include::../source-code/SomeJavaCodeClass.java[]
+----
+
+Some details
+
+* Option-1
+** Options
+** option-3
+*** something goes here
+
+[NOTE]
+====
+Some notes goes here
+====
+
+[source,java]
+----
+include::../source-code/SomeJavaCodeClass.java[]
+----
+
+* Option-1
+** Options
+** option-3
+*** something goes here
